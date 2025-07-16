@@ -1,5 +1,5 @@
 /*-------------- Constants -------------*/
-// (Add constants here if needed, like image URLs)
+
 
 /*---------- Variables (state) ---------*/
 let board;
