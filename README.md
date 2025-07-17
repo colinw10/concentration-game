@@ -17,11 +17,13 @@ Rules-
 2. If you match all the pairs you win, but if you reach 15 guesses before matching all the pairs then you lose.
 3. There is no time limit for the game.
 4. If you want to play again press “Reset Game” and the cards will shuffle as well as the guess counter resetting.
+
+
 Psuedocode- 
 1.Define constants and variables
-* Define list of card images or values (e.g., ocean animals)
+* Define list of card images or values 
 * Define max number of wrong guesses allowed
-2. Define app state variables (do not assign values yet)
+2. Define app state variables 
 * cards (array of shuffled card objects)
 * firstCard (object or null)
 * secondCard (object or null)
