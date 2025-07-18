@@ -1,24 +1,28 @@
-/*-------------- Constants -------------*/
+const MAX_GUESSES = 10;
 
-
-/*---------- Variables (state) ---------*/
 let board;
 let firstCardIdx;
 let secondCardIdx;
 let canFlip;
 let matchedIndices = [];
+let guessCount = 0;
 
-/*----- Cached Element References  -----*/
 const boardEl = document.getElementById('board');
 const resetBtn = document.getElementById('reset');
+const startBtn = document.getElementById('start');
+const rulesSection = document.getElementById('rules');
+const gameSection = document.getElementById('game');
+const guessCountEl = document.getElementById('guess-count');
+const messageEl = document.getElementById('message');
 
-/*-------------- Functions -------------*/
-
-// Initialize/reset the game state
 function init() {
   board = [
-    'A', 'A', 'B', 'B', 'C', 'C',
-    'D', 'D', 'E', 'E', 'F', 'F'
+    'dolphin.png', 'dolphin.png',
+    'shark.png', 'shark.png',
+    'jellyfish.png', 'jellyfish.png',
+    'clownfish.png', 'clownfish.png',
+    'bluetang.png', 'bluetang.png',
+    'seaturtle.png', 'seaturtle.png'
   ];
   shuffleBoard();
 
@@ -26,53 +30,60 @@ function init() {
   secondCardIdx = null;
   canFlip = true;
   matchedIndices = [];
+  guessCount = 0;
+  guessCountEl.textContent = guessCount;
+  messageEl.textContent = '';
 
   render();
 }
 
-// Shuffle the board array randomly
 function shuffleBoard() {
   board.sort(() => Math.random() - 0.5);
 }
 
-// Handle card clicks and game logic
 function handleCardClick(idx) {
-  if (!canFlip) return;
-  if (matchedIndices.includes(idx)) return;  // Ignore clicks on matched cards
-  if (idx === firstCardIdx) return;           // Ignore clicking the same card twice
+  if (!canFlip || matchedIndices.includes(idx) || idx === firstCardIdx) return;
+  if (messageEl.textContent !== '') return;
 
   if (firstCardIdx === null) {
     firstCardIdx = idx;
   } else if (secondCardIdx === null) {
     secondCardIdx = idx;
     canFlip = false;
+    render();
 
     if (board[firstCardIdx] === board[secondCardIdx]) {
-      // Cards match: save matched indices
       matchedIndices.push(firstCardIdx, secondCardIdx);
       resetTurn();
       render();
       checkWin();
     } else {
-      // Not a match: flip cards back after 1 second
-      setTimeout(() => {
-        resetTurn();
-        render();
-      }, 1000);
+      guessCount++;
+      guessCountEl.textContent = guessCount;
+
+      if (guessCount >= MAX_GUESSES) {
+        setTimeout(() => {
+          messageEl.textContent = '❌ You lost! Press Reset Game to try again.';
+          canFlip = false;
+        }, 1000);
+      } else {
+        setTimeout(() => {
+          resetTurn();
+          render();
+        }, 1000);
+      }
     }
   }
 
   render();
 }
 
-// Reset card selections and allow flipping again
 function resetTurn() {
   firstCardIdx = null;
   secondCardIdx = null;
   canFlip = true;
 }
 
-// Render cards on the board
 function render() {
   boardEl.innerHTML = '';
 
@@ -81,9 +92,13 @@ function render() {
     cardEl.className = 'card';
 
     if (matchedIndices.includes(idx) || idx === firstCardIdx || idx === secondCardIdx) {
-      cardEl.textContent = card;  // face-up card
+      const imgEl = document.createElement('img');
+      imgEl.src = `./images/${card}`;
+      imgEl.alt = card.split('.')[0];
+      imgEl.classList.add('card-img');
+      cardEl.appendChild(imgEl);
     } else {
-      cardEl.textContent = '?';   // face-down card
+      cardEl.textContent = '?';
     }
 
     cardEl.addEventListener('click', () => handleCardClick(idx));
@@ -91,16 +106,50 @@ function render() {
   });
 }
 
-// Check if player has matched all cards
 function checkWin() {
   if (matchedIndices.length === board.length) {
-    alert("🎉 You won! Click Reset to play again.");
+    messageEl.textContent = '🎉 You won! Press Reset Game to play again.';
+    canFlip = false;
   }
 }
 
-/*----------- Event Listeners ----------*/
+function renderPreview() {
+  const previewEl = document.getElementById('preview');
+  previewEl.innerHTML = '';
+
+  const uniqueImages = [...new Set(board)];
+
+  uniqueImages.forEach(filename => {
+    const container = document.createElement('div');
+    container.style.display = 'inline-block';
+    container.style.margin = '10px';
+    container.style.textAlign = 'center';
+
+    const imgEl = document.createElement('img');
+    imgEl.src = `./images/${filename}`;
+    imgEl.alt = filename.split('.')[0];
+    imgEl.style.width = '80px';
+    imgEl.style.height = '80px';
+    imgEl.style.objectFit = 'contain';
+
+    const label = document.createElement('p');
+    label.textContent = filename.split('.')[0];
+
+    container.appendChild(imgEl);
+    container.appendChild(label);
+    previewEl.appendChild(container);
+  });
+}
+
 resetBtn.addEventListener('click', init);
 
+startBtn.addEventListener('click', () => {
+  rulesSection.style.display = 'none';
+  gameSection.style.display = 'block';
+  init();
+});
 
-/*-------------- Start Game -------------*/
 init();
+renderPreview();
+
+
