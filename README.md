@@ -1,8 +1,9 @@
 # Marine Memory
 
-![Rules Screenshot](./rules.png)
+![Game Rules](./images/rules.png)
 
-![Board](./board.png)
+
+![Game Board](./images/board.png)
 
 ## User Stories-
 - As a user, I want a landing page when I arrive at the website to know I’m in the right place.
