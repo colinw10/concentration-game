@@ -1,3 +1,4 @@
+
 const MAX_GUESSES = 10;
 
 let board;
@@ -6,6 +7,7 @@ let secondCardIdx;
 let canFlip;
 let matchedIndices = [];
 let guessCount = 0;
+let mismatchedIndices = []; // track mismatched cards to style temporarily
 
 const boardEl = document.getElementById('board');
 const resetBtn = document.getElementById('reset');
@@ -30,6 +32,7 @@ function init() {
   secondCardIdx = null;
   canFlip = true;
   matchedIndices = [];
+  mismatchedIndices = [];
   guessCount = 0;
   guessCountEl.textContent = guessCount;
   messageEl.textContent = '';
@@ -58,20 +61,20 @@ function handleCardClick(idx) {
       render();
       checkWin();
     } else {
+      mismatchedIndices = [firstCardIdx, secondCardIdx]; // mark mismatched
       guessCount++;
       guessCountEl.textContent = guessCount;
 
-      if (guessCount >= MAX_GUESSES) {
-        setTimeout(() => {
+      setTimeout(() => {
+        mismatchedIndices = []; // clear mismatch styling
+        resetTurn();
+        render();
+
+        if (guessCount >= MAX_GUESSES) {
           messageEl.textContent = '❌ You lost! Press Reset Game to try again.';
           canFlip = false;
-        }, 1000);
-      } else {
-        setTimeout(() => {
-          resetTurn();
-          render();
-        }, 1000);
-      }
+        }
+      }, 1000);
     }
   }
 
@@ -90,6 +93,16 @@ function render() {
   board.forEach((card, idx) => {
     const cardEl = document.createElement('div');
     cardEl.className = 'card';
+
+    // Green border for matched cards
+    if (matchedIndices.includes(idx)) {
+      cardEl.classList.add('matched');
+    }
+
+    // Red border for mismatched cards
+    if (mismatchedIndices.includes(idx)) {
+      cardEl.classList.add('mismatched');
+    }
 
     if (matchedIndices.includes(idx) || idx === firstCardIdx || idx === secondCardIdx) {
       const imgEl = document.createElement('img');
@@ -151,5 +164,3 @@ startBtn.addEventListener('click', () => {
 
 init();
 renderPreview();
-
-
