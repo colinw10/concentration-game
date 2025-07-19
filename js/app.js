@@ -1,4 +1,3 @@
-
 const MAX_GUESSES = 10;
 
 let board;
@@ -7,7 +6,7 @@ let secondCardIdx;
 let canFlip;
 let matchedIndices = [];
 let guessCount = 0;
-let mismatchedIndices = []; // track mismatched cards to style temporarily
+let mismatchedIndices = [];
 
 const boardEl = document.getElementById('board');
 const resetBtn = document.getElementById('reset');
@@ -16,6 +15,7 @@ const rulesSection = document.getElementById('rules');
 const gameSection = document.getElementById('game');
 const guessCountEl = document.getElementById('guess-count');
 const messageEl = document.getElementById('message');
+const boardContainer = document.getElementById('board-container');
 
 function init() {
   board = [
@@ -36,6 +36,8 @@ function init() {
   guessCount = 0;
   guessCountEl.textContent = guessCount;
   messageEl.textContent = '';
+
+  boardContainer.classList.remove('win', 'lose');
 
   render();
 }
@@ -61,17 +63,18 @@ function handleCardClick(idx) {
       render();
       checkWin();
     } else {
-      mismatchedIndices = [firstCardIdx, secondCardIdx]; // mark mismatched
+      mismatchedIndices = [firstCardIdx, secondCardIdx];
       guessCount++;
       guessCountEl.textContent = guessCount;
 
       setTimeout(() => {
-        mismatchedIndices = []; // clear mismatch styling
+        mismatchedIndices = [];
         resetTurn();
         render();
 
         if (guessCount >= MAX_GUESSES) {
           messageEl.textContent = '❌ You lost! Press Reset Game to try again.';
+          boardContainer.classList.add('lose');
           canFlip = false;
         }
       }, 1000);
@@ -94,12 +97,10 @@ function render() {
     const cardEl = document.createElement('div');
     cardEl.className = 'card';
 
-    // Green border for matched cards
     if (matchedIndices.includes(idx)) {
       cardEl.classList.add('matched');
     }
 
-    // Red border for mismatched cards
     if (mismatchedIndices.includes(idx)) {
       cardEl.classList.add('mismatched');
     }
@@ -122,6 +123,7 @@ function render() {
 function checkWin() {
   if (matchedIndices.length === board.length) {
     messageEl.textContent = '🎉 You won! Press Reset Game to play again.';
+    boardContainer.classList.add('win');
     canFlip = false;
   }
 }
@@ -164,3 +166,5 @@ startBtn.addEventListener('click', () => {
 
 init();
 renderPreview();
+
+

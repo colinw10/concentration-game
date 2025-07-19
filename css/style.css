@@ -8,6 +8,14 @@ body {
   background-attachment: fixed;
 }
 
+@keyframes shake {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(0); }
+}
+
 #title-box {
   width: 60%;
   margin: 20px auto;
@@ -34,14 +42,6 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-#rules ol {
-  padding-left: 20px;
-}
-
-#rules li {
-  margin-bottom: 10px;
-}
-
 #board-container {
   width: max-content;
   min-width: 540px;
@@ -52,6 +52,16 @@ body {
   border-radius: 12px;
   box-shadow: 0 6px 15px rgba(0, 119, 182, 0.4);
   text-align: center;
+}
+
+#board-container.win {
+  background-color: rgba(0, 255, 0, 0.3);
+  border-color: green;
+}
+
+#board-container.lose {
+  background-color: rgba(255, 0, 0, 0.3);
+  border-color: red;
 }
 
 #board {
@@ -103,6 +113,7 @@ body {
 .card.mismatched {
   border: 3px solid red;
   box-shadow: 0 0 10px 3px #f44336;
+  animation: shake 0.3s;
 }
 
 .card-img {
@@ -116,6 +127,8 @@ button {
   margin-top: 0;
   padding: 10px 20px;
 }
+
+
 
 
 
