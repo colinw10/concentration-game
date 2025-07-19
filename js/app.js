@@ -1,6 +1,6 @@
 const MAX_GUESSES = 10;
 
-let board;
+let cards;
 let firstCardIdx;
 let secondCardIdx;
 let canFlip;
@@ -18,7 +18,7 @@ const messageEl = document.getElementById('message');
 const boardContainer = document.getElementById('board-container');
 
 function init() {
-  board = [
+  cards = [
     'dolphin.png', 'dolphin.png',
     'shark.png', 'shark.png',
     'jellyfish.png', 'jellyfish.png',
@@ -26,7 +26,7 @@ function init() {
     'bluetang.png', 'bluetang.png',
     'seaturtle.png', 'seaturtle.png'
   ];
-  shuffleBoard();
+  shuffleCards();
 
   firstCardIdx = null;
   secondCardIdx = null;
@@ -42,8 +42,8 @@ function init() {
   render();
 }
 
-function shuffleBoard() {
-  board.sort(() => Math.random() - 0.5);
+function shuffleCards() {
+  cards.sort(() => Math.random() - 0.5);
 }
 
 function handleCardClick(idx) {
@@ -57,7 +57,7 @@ function handleCardClick(idx) {
     canFlip = false;
     render();
 
-    if (board[firstCardIdx] === board[secondCardIdx]) {
+    if (cards[firstCardIdx] === cards[secondCardIdx]) {
       matchedIndices.push(firstCardIdx, secondCardIdx);
       resetTurn();
       render();
@@ -93,7 +93,7 @@ function resetTurn() {
 function render() {
   boardEl.innerHTML = '';
 
-  board.forEach((card, idx) => {
+  cards.forEach((card, idx) => {
     const cardEl = document.createElement('div');
     cardEl.className = 'card';
 
@@ -121,7 +121,7 @@ function render() {
 }
 
 function checkWin() {
-  if (matchedIndices.length === board.length) {
+  if (matchedIndices.length === cards.length) {
     messageEl.textContent = '🎉 You won! Press Reset Game to play again.';
     boardContainer.classList.add('win');
     canFlip = false;
@@ -132,7 +132,7 @@ function renderPreview() {
   const previewEl = document.getElementById('preview');
   previewEl.innerHTML = '';
 
-  const uniqueImages = [...new Set(board)];
+  const uniqueImages = [...new Set(cards)];
 
   uniqueImages.forEach(filename => {
     const container = document.createElement('div');
@@ -166,5 +166,6 @@ startBtn.addEventListener('click', () => {
 
 init();
 renderPreview();
+
 
 

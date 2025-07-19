@@ -13,15 +13,18 @@
 - As a user, I want to see my matched cards stay flipped over to know which ones I have correct
 - As a user, I want to see a message to tell me if I have won or lost
 
-Rules- 
+### Rules- 
 
 1. There is 12 cards total on the board (6 Pairs) and the objective is to match all 6 pairs to win.
 2. If you match all the pairs you win, but if you reach 15 guesses before matching all the pairs then you lose.
 3. There is no time limit for the game.
 4. If you want to play again press “Reset Game” and the cards will shuffle as well as the guess counter resetting.
 
+#### Technologies Used-
+- Javascript, HTML, CSS
 
-Psuedocode- 
+
+##### Psuedocode- 
 1.Define constants and variables
 * Define list of card images or values 
 * Define max number of wrong guesses allowed
@@ -61,3 +64,6 @@ Psuedocode-
 * Call render()
 8. Wait for user to click "Play Again"
 * On click - invoke init() to reset game
+
+###### Attributions-
+Some coding guidance and suggestions were assisted by OpenAI's ChatGPT.
