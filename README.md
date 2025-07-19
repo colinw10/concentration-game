@@ -1,8 +1,10 @@
-# Colin's Concentration Game
+# Marine Memory
 
-![Concentration Game Screenshot](./ConcentrationGame.png)
+![Rules Screenshot](./rules.png)
 
-User Stories-
+![Board](./board.png)
+
+## User Stories-
 - As a user, I want a landing page when I arrive at the website to know I’m in the right place.
 - As a user, I want to see all of the games instructions and rules
 - As a user, I want to see all of the card images before flipping them over to become familiar with them 
