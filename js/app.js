@@ -1,4 +1,4 @@
-const MAX_GUESSES = 10;
+const MAX_GUESSES = 8;
 
 let cards;
 let firstCardIdx;
@@ -36,10 +36,9 @@ function init() {
   guessCount = 0;
   guessCountEl.textContent = guessCount;
   messageEl.textContent = '';
-
   boardContainer.classList.remove('win', 'lose');
 
-  render();
+  render(true);
 }
 
 function shuffleCards() {
@@ -90,12 +89,16 @@ function resetTurn() {
   canFlip = true;
 }
 
-function render() {
+function render(applyShuffle = false) {
   boardEl.innerHTML = '';
 
   cards.forEach((card, idx) => {
     const cardEl = document.createElement('div');
     cardEl.className = 'card';
+
+    if (applyShuffle) {
+      cardEl.classList.add('shuffle');
+    }
 
     if (matchedIndices.includes(idx)) {
       cardEl.classList.add('matched');
@@ -169,7 +172,3 @@ startBtn.addEventListener('click', () => {
 
 init();
 renderPreview();
-
-
-
-
