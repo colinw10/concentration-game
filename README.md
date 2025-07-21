@@ -17,7 +17,7 @@
 # *Rules*- 
 
 1. There is 12 cards total on the board (6 Pairs) and the objective is to match all 6 pairs to win.
-2. If you match all the pairs you win, but if you reach 15 guesses before matching all the pairs then you lose.
+2. If you match all the pairs you win, but if you reach 8 guesses before matching all the pairs then you lose.
 3. There is no time limit for the game.
 4. If you want to play again press “Reset Game” and the cards will shuffle as well as the guess counter resetting.
 
