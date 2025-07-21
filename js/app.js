@@ -112,7 +112,11 @@ function render() {
       imgEl.classList.add('card-img');
       cardEl.appendChild(imgEl);
     } else {
-      cardEl.textContent = '?';
+      const backImg = document.createElement('img');
+      backImg.src = './images/ocean.jpg';
+      backImg.alt = 'Card Back';
+      backImg.classList.add('card-img');
+      cardEl.appendChild(backImg);
     }
 
     cardEl.addEventListener('click', () => handleCardClick(idx));
@@ -157,7 +161,6 @@ function renderPreview() {
 }
 
 resetBtn.addEventListener('click', init);
-
 startBtn.addEventListener('click', () => {
   rulesSection.style.display = 'none';
   gameSection.style.display = 'block';
@@ -166,6 +169,7 @@ startBtn.addEventListener('click', () => {
 
 init();
 renderPreview();
+
 
 
 
