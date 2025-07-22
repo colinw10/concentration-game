@@ -5,6 +5,9 @@
 ![Win Result](./images/win.png)
 ![Loss Result](./images/loss.png)
 
+# *Game Link*-
+https://colinw10.github.io/concentration-game/
+
 # *User Stories*-
 - As a user, I want a landing page when I arrive at the website to know I’m in the right place.
 - As a user, I want to see all of the games instructions and rules
@@ -26,6 +29,9 @@
 
 # *Future Enhancements*
 - Easy, Medium, and Hard modes 
+
+# *Attributions*-
+Some coding guidance and suggestions were assisted by OpenAI's ChatGPT.
 
 # *Psuedocode*- 
 1.Define constants and variables
@@ -67,6 +73,3 @@
 * Call render()
 8. Wait for user to click "Play Again"
 * On click - invoke init() to reset game
-
-# *Attributions*-
-Some coding guidance and suggestions were assisted by OpenAI's ChatGPT.
